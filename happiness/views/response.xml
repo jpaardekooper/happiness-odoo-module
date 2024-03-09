@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="happiness_response_tree" model="ir.ui.view">
+        <field name="name">happiness.response.tree</field>
+        <field name="model">happiness.response</field>
+        <field name="arch" type="xml">
+            <tree string="Response Tree" decoration-danger="happiness&lt;3" decoration-success="happiness&gt;3" decoration-warning="happiness==3">
+                <field name="user_id" />
+                <field name="work_location" />
+                <field name="happiness"/>
+                <field attrs="{'invisible':[('allowed_read', '=', False)]}" name="note" />
+                <field name="allowed_read" />
+                <field name="create_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="happiness_response_form" model="ir.ui.view">
+        <field name="name">happiness.response.form</field>
+        <field name="model">happiness.response</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="user_id" />
+                        <field name="work_location" />
+                        <field name="create_date" />
+                    </group>
+                    <group>
+                        <field name="happiness" />
+                        <field attrs="{'invisible':[('allowed_read', '==', False)]}" name="note" />
+                        <field name="allowed_read" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="happiness_response_graph" model="ir.ui.view">
+        <field name="name">happiness.response.graph</field>
+        <field name="model">happiness.response</field>
+        <field name="arch" type="xml">
+            <graph string="response Graph" type="bar">
+                <field name="create_date" interval="day" type="row" />
+                <field name="happiness" type='measure' />
+            </graph>
+        </field>
+    </record>
+
+    <record id="happiness_result_view_search" model="ir.ui.view">
+        <field name="name">happiness.response.search</field>
+        <field name="model">happiness.response</field>
+        <field name="arch" type="xml">
+            <search string="Search User responses">
+                <field name="user_id" />
+                <group expand="1" string="Group By">
+                    <filter name="group_by_created_on" string="Created on" domain="[]" context="{'group_by':'create_date:week'}" />
+                    <filter name="group_by_user" string="Gebruiker" domain="[]" context="{'group_by':'user_id'}" />
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_response" model="ir.actions.act_window">
+        <field name="name">response</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">happiness.response</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="context">{'search_default_group_by_created_on': True, 'search_default_group_by_user': True' }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first response
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="happiness_root" name="Happiness" sequence="10" />
+    <menuitem id="happiness_response" name="Response" parent="happiness_root" action="action_response" sequence="20" />
+    <menuitem id="happiness_conversation" name="Conversation" parent="happiness_root" action="action_conversation" sequence="30" />
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_happiness_conversation,access.happiness.conversation.manager,happiness.model_happiness_conversation,happiness_group_manager,1,1,1,1
+access_happiness_conversation,access.happiness.conversation.user,happiness.model_happiness_conversation,happiness_group_user,1,1,1,1
+access_happiness_response,access.happiness.response.manager,happiness.model_happiness_response,happiness_group_manager,1,1,1,1
+access_happiness_response,access.happiness.response.user,happiness.model_happiness_response,happiness_group_user,1,1,1,1

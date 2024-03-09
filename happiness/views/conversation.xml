@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="happiness_conversation_tree" model="ir.ui.view">
+        <field name="name">happiness.conversation.tree</field>
+        <field name="model">happiness.conversation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id" />
+                <field name="user" />
+                <field name="coach_id" />
+                <field name="coach" />
+                <field name="status" widget="badge" />
+                <field name="conversation_date" />
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="happiness_conversation_kanban_view" model="ir.ui.view">
+        <field name="name">Survey kanban</field>
+        <field name="model">happiness.conversation</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" sample="1">
+                <field name="status" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_box_header ">
+                                <b>
+                                    <field name="user_id" />
+                                </b>
+                                <div class="oe_dropdown_kanban float-right">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg" title="Manage" aria-label="Manage" />
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                            </div>
+                            <div t-attf-class="oe_kanban_content">
+                                <group>
+                                    <field name="user" />
+                                    <field name="coach_id" />
+                                    <field name="coach" />
+                                </group>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="happiness_conversation_form" model="ir.ui.view">
+        <field name="name">happiness.conversation.form</field>
+        <field name="model">happiness.conversation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" />
+                            <field name="user" />
+                            <field name="conversation_date" />
+                        </group>
+                        <group>
+                            <field name="coach_id" />
+                            <field name="coach" />
+                        </group>
+                        <group>
+                            <field name="status" />
+                            <field name="comment" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_conversation" model="ir.actions.act_window">
+        <field name="name">conversation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">happiness.conversation</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first Conversation
+            </p>
+        </field>
+    </record>
+
+
+   
+
+</odoo>
